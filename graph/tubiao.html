@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript" src="../js/echarts.js"></script>
+    <div id="chartmains" style="margin:0 auto;text-align:center; width:600px; height: 400px;color:darkgreen;"></div>
+    <div id="chartmain" style="margin:0 auto;width:800px; height: 400px;color:darkgreen;"></div>
+    <div id="cc" style="margin:0 auto;width:400px; height: 400px;color:darkgreen;"></div>
+    <script type="text/javascript">
+      
+        var option = {
+            toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+            title:{
+                text:'平均每公顷株数和蓄积'
+            },
+            tooltip:{},
+            legend:{
+                data:['用户来源']
+            },
+            xAxis:{
+                data:["用材林","用材林每公顷蓄积","防护林","防护林每公顷蓄积"]
+            },
+            yAxis:{
+
+            },
+            series:[{
+                itemStyle: {
+                    normal: {
+　　　　　　　　　　　　　　
+                        color: function(params) {
+                            
+                            var colorList = [
+                              '#B5C334','#C1232B','#FCCE10','#E87C25','#27727B',
+                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+　　　　　　　　　　　　　
+                        label: {
+                            show: true,
+                            position: 'top',
+//                     
+                            formatter: '{b}\n{c}'
+                        }
+                    }
+                },
+                name:'数据',
+                type:'bar',
+                data:[1387.43,145.44,1803.60,36.57]
+            }]
+        };
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chartmain'));
+
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(option);
+        var option = {
+            toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+            tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+            title:{
+                text:'林种区'
+            },            
+            series:[{
+                itemStyle: {
+                    normal: {
+　　　　　　　　　　　　　　
+                        color: function(params) {
+                            
+                            var colorList = [
+                              '#B5C334','#C1232B','#FCCE10','#E87C25','#27727B',
+                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+　　　　　　　　　　　　　
+                        label: {
+                            show: true,
+                            position: 'top',
+//                     
+                            formatter: '{b}\n{c}'
+                        }
+                    }
+                },
+                name:'数据',
+                type:'pie',    
+                radius:'60%', 
+                data:[
+                    {value:1200,name:'用材林'},
+                    {value:28,name:'防护林'},
+                    {value:1,name:'其他'},
+                ]
+            }]
+        };
+        
+        var myCharts = echarts.init(document.getElementById('chartmains'));
+        myCharts.setOption(option);
+        var option = {
+            toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+            title:{
+                text:'平均出材率等级'
+            },
+            tooltip:{},
+            legend:{
+                data:['用户来源']
+            },
+            xAxis:{
+                data:["用材林","防护林"]
+            },
+            yAxis:{
+
+            },
+            series:[{
+                itemStyle: {
+                    normal: {
+　　　　　　　　　　　　　　
+                        color: function(params) {
+                            
+                            var colorList = [
+                              '#B5C334','#C1232B','#FCCE10','#E87C25','#27727B',
+                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+　　　　　　　　　　　　　
+                        label: {
+                            show: true,
+                            position: 'top',
+//                     
+                            formatter: '{b}\n{c}'
+                        }
+                    }
+                },
+                name:'数据',
+                type:'bar',
+                data:[1.1530,1.0000]
+            }]
+        };
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('cc'));
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

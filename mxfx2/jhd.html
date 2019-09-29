@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/echarts.js"></script>
+    <link rel="stylesheet" href="mx.css" type="text/css" >
+
+</head>
+<body>
+
+    <h1 style="padding: 1em;color:darkgreen">生产负离子量 </h1>
+    <img src="../image/2gs13.png">
+    <form class="gs" id="form"> 
+ 
+        G负离子:<input name='qflz' value="22.132243"></input>
+        A:<input name='a' value="22.132243"></input>
+        H:<input name='h' value="0.010571"></input>
+        L:<input name='l' value="22.132243"></input>
+
+        <input type='button' id="btn" value="确定" ></input> <em id="jg"> </em>
+    </form>
+   
+
+    <h1 style="padding: 1em;color:darkgreen">负离子价值量 </h1>
+    <img src="../image/2gs14.png">
+    <form class="gs" id="form2"> 
+        A:<input name='a' value="22.132243"></input>
+        H:<input name='h' value="0.010571"></input>
+        K负离子:<input name='kflz' value="30"></input>
+        Q负离子:<input name='qflz' value="40"></input>
+        L:<input name='l' value="40"></input>
+            <input type='button' id="btn2" value="确定" ></input> <em id="jg2"></em>
+        </form>
+
+    <h1 style="padding: 1em;color:darkgreen">吸收污染物</h1>
+   
+    <img src="../image/2gs15.png">
+
+     <form class="gs" id="form3"> 
+        
+         Q二氧化硫:<input name='kso2'  id='dg' value="20"></input>
+         A:<input name='rt' value="1.196614"></input>
+
+            <input type='button' id="btn3" value="确定" ></input> <em id="jg3"></em>
+        </form>
+        <h1 style="padding: 1em;color:darkgreen">二氧化硫价值量</h1>
+   
+        <img src="../image/2gs16.png">
+    
+         <form class="gs" id="form4"> 
+             K二氧化硫:<input name='a' value="49544.07"></input>
+             Q二氧化硫:<input name='c'  id='bn' value="20"></input>
+             A:<input name='rt' value="1.196614"></input>
+   
+                <input type='button' id="btn4" value="确定" ></input> <em id="jg4"></em>
+            </form>
+     
+    <h1 style="padding: 1em;color:darkgreen">吸收氟化物量  </h1>
+    <img src="../image/2gs17.png">
+    <form class="gs" id="form5"> 
+ 
+        Q氟化物:<input name='cyqdyhw' value="30"></input>
+        A:<input name='a' value="40"></input>
+       
+            <input type='button' id="btn5" value="确定" ></input> <em id="jg5"></em>
+        </form>
+        <h1 style="padding: 1em;color:darkgreen">氟化物价值量  </h1>
+    <img src="../image/2gs18.png">
+    <form class="gs" id="form6"> 
+ 
+        K氟化物:<input name='kdyhw' value="30"></input>
+        Q氟化物:<input name='qdyhw' value="30"></input>
+        A:<input name='a' value="40"></input>
+       
+            <input type='button' id="btn6" value="确定" ></input> <em id="jg6"></em>
+        </form>
+        <h1 style="padding: 1em;color:darkgreen">吸收氮氧化物量  </h1>
+    <img src="../image/2gs19.png">
+    <form class="gs" id="form7"> 
+ 
+       
+        Q氮氧化物:<input name='qdyhw' value="30"></input>
+        A:<input name='a' value="40"></input>
+       
+            <input type='button' id="btn6" value="确定" ></input> <em id="jg7"></em>
+        </form>
+        
+        <h1 style="padding: 1em;color:darkgreen">氮氧化物价值量  </h1>
+        <img src="../image/2gs20.png">
+        <form class="gs" id="form8"> 
+     
+            K氮氧化物:<input name='kdyhw' value="30"></input>
+            Q氮氧化物:<input name='qdyhw' value="30"></input>
+            A:<input name='a' value="40"></input>
+           
+                <input type='button' id="btn6" value="确定" ></input> <em id="jg8"></em>
+            </form>
+            
+            <h1 style="padding: 1em;color:darkgreen">吸收重金属量 </h1>
+            <img src="../image/2gs21.png">
+            <form class="gs" id="form9"> 
+         
+               
+                Q重金属:<input name='qzjs' value="30"></input>
+                A:<input name='a' value="40"></input>
+               
+                    <input type='button' id="btn6" value="确定" ></input> <em id="jg9"></em>
+                </form>   
+                <h1 style="padding: 1em;color:darkgreen">重金属价值量</h1>
+            <img src="../image/2gs22.png">
+            <form class="gs" id="form10"> 
+         
+                K重金属:<input name='kzjs' value="30"></input>
+                Q重金属:<input name='qzjs' value="30"></input>
+                A:<input name='a' value="40"></input>
+               
+                    <input type='button' id="btn6" value="确定" ></input> <em id="jg10"></em>
+                </form>   
+                <h1 style="padding: 1em;color:darkgreen">滞 尘</h1>
+                <img src="../image/2gs23.png">
+                <form class="gs" id="form11"> 
+             
+                   
+                    Q滞 尘:<input name='qzc' value="30"></input>
+                    A:<input name='a' value="40"></input>
+                   
+                        <input type='button' id="btn6" value="确定" ></input> <em id="jg11"></em>
+                    </form>   
+                    <h1 style="padding: 1em;color:darkgreen">滞尘价值量</h1>
+                    <img src="../image/2gs24.png">
+                    <form class="gs" id="form12"> 
+                 
+                        K滞 尘:<input name='kzc' value="30"></input>
+                        Q滞 尘:<input name='qzc' value="30"></input>
+                        A:<input name='a' value="40"></input>
+                       
+                            <input type='button' id="btn6" value="确定" ></input> <em id="jg12"></em>
+                        </form>   
+
+     
+                        <script type="module">
+                            import {http} from '../url.js';
+        $("#form").click(function(){
+            console.log(JSON.stringify($("#form")))
+        var temp = JSON.stringify({
+
+                qflz:$("#form").serializeArray()[0].value,
+                a:$("#form").serializeArray()[1].value,
+                h:$("#form").serializeArray()[2].value,
+                l:$("#form").serializeArray()[3].value,
+                
+        });
+
+        console.log(temp);
+            $.ajax({
+                url: http+"gflz",
+                type:"POST",
+                data: temp,
+                contentType:'application/json',
+                        // 这里把表单里面的数据放在这里传到后台
+                success:function(res){
+                    console.log(res.data);
+                    // $("#jg").after(res.data);     
+                    document.getElementById('jg').innerHTML = res.data; 
+                   
+                }  
+            })
+            return false;
+        })
+
+                $("#form2").click(function(){
+                    console.log(JSON.stringify($("#form2")))
+                var temp = JSON.stringify({
+ 
+                        a:$("#form2").serializeArray()[0].value,
+                        h:$("#form2").serializeArray()[1].value,
+                        kflz:$("#form2").serializeArray()[2].value,
+                        qflz:$("#form2").serializeArray()[3].value,
+                        l:$("#form2").serializeArray()[4].value,
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"uflz",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg2').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+  
+            $("#form3").click(function(){
+                console.log(JSON.stringify($("#form3")))
+            var temp = JSON.stringify({
+            
+                qso2:$("#form3").serializeArray()[0].value,
+                    a:$("#form3").serializeArray()[1].value,
+         
+
+            });
+    
+            console.log(temp);
+                $.ajax({
+                    url: http+"geyhl",
+                    type:"POST",
+                    data: temp,
+                    contentType:'application/json',
+                            // 这里把表单里面的数据放在这里传到后台
+                    success:function(res){
+                        console.log(res.data);
+                        // $("#jg").after(res.data);     
+                        document.getElementById('jg3').innerHTML = res.data; 
+                       
+                    }  
+                })
+                return false;
+            })
+            $("#form4").click(function(){
+                    console.log(JSON.stringify($("#form4")))
+                var temp = JSON.stringify({
+
+                        kso2:$("#form4").serializeArray()[0].value,
+                        qso2:$("#form4").serializeArray()[1].value,
+                        a:$("#form4").serializeArray()[2].value,
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"ueyhl",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg4').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+                $("#form5").click(function(){
+                    console.log(JSON.stringify($("#form5")))
+                var temp = JSON.stringify({
+
+                    qfhw:$("#form5").serializeArray()[0].value,
+                        a:$("#form5").serializeArray()[1].value,
+                      
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"gfhw",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg5').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+                $("#form6").click(function(){
+                    console.log(JSON.stringify($("#form6")))
+                var temp = JSON.stringify({
+
+                   kfhw:$("#form6").serializeArray()[0].value,
+                   qfhw:$("#form6").serializeArray()[1].value,
+                        a:$("#form6").serializeArray()[2].value,
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"ufu",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg6').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+                $("#form7").click(function(){
+                    console.log(JSON.stringify($("#form7")))
+                var temp = JSON.stringify({
+
+                    qdyhw:$("#form6").serializeArray()[0].value,
+                        a:$("#form6").serializeArray()[1].value,
+                 
+                       
+                });
+
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"gdyhw",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg7').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+                $("#form8").click(function(){
+                    console.log(JSON.stringify($("#form8")))
+                var temp = JSON.stringify({
+
+                    kdyhw:$("#form8").serializeArray()[0].value,
+                        qdyhw:$("#form8").serializeArray()[1].value,
+                        a:$("#form8").serializeArray()[2].value,
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"udyhw",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg8').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+                $("#form9").click(function(){
+                    console.log(JSON.stringify($("#form9")))
+                var temp = JSON.stringify({
+
+                    qzjs:$("#form9").serializeArray()[0].value,
+                        a:$("#form9").serializeArray()[1].value,
+                       
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"gzjs",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg9').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+                $("#form10").click(function(){
+                    console.log(JSON.stringify($("#form10")))
+                var temp = JSON.stringify({
+
+                   kzjs:$("#form10").serializeArray()[0].value,
+                        qzjs:$("#form10").serializeArray()[1].value,
+                        a:$("#form10").serializeArray()[2].value,
+                       
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"uzjs",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg10').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                }
+                )
+                $("#form11").click(function(){
+                    console.log(JSON.stringify($("#form11")))
+                var temp = JSON.stringify({
+
+                   qzc:$("#form11").serializeArray()[0].value,
+                       a:$("#form11").serializeArray()[1].value,
+                      
+                       
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"gdc",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg11').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                }
+                )
+                $("#form12").click(function(){
+                    console.log(JSON.stringify($("#form12")))
+                var temp = JSON.stringify({
+
+                   kzc:$("#form12").serializeArray()[0].value,
+                       qzc:$("#form12").serializeArray()[1].value,
+                       a:$("#form12").serializeArray()[2].value,
+                      
+                       
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"uzc",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg12').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                }
+                )
+            </script>
+
+</body>
+</html>

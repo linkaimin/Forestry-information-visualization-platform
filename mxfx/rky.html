@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/echarts.js"></script>
+    <link rel="stylesheet" href="mx.css" type="text/css" >
+
+</head>
+<body>
+
+    <h1 style="padding: 1em;color:darkgreen">地位级指数导向曲线公式 </h1>
+    <img src="../image/gs1.png">
+    <form class="gs" id="form"> 
+        t:<input name='t' value="40"></input>
+        A:<input name='A' value="22.132243"></input>
+        k:<input name='k' value="0.010571"></input>
+        c:<input name='c' value="0.541094"></input>
+        <input type='button' id="btn" value="确定" ></input> <em id="jg"> </em>
+    </form>
+   
+
+    <h1 style="padding: 1em;color:darkgreen">地位级指数（SCI）计算公式  </h1>
+    <img src="../image/gs2.png">
+    <form class="gs" id="form2"> 
+        TH:<input name='TH' id='th' value="40"></input>
+        t:<input name='t' value="30"></input>
+        tI:<input name='tI' value="40"></input>
+        k:<input name='k' value="0.010571"></input>
+        c:<input name='c' value="0.541094"></input>
+            <input type='button' id="btn2" value="确定" ></input> <em id="jg2"></em>
+        </form>
+
+    <h1 style="padding: 1em;color:darkgreen">密度林分N－Dg方程</h1>
+   
+    <img src="../image/gs3-1.png">
+    <img src="../image/gs3-2.png">
+     <form class="gs" id="form3"> 
+         Dg:<input name='TH'  id='dg' value="20"></input>
+         α:<input name='t' value="49544.07"></input>
+         β:<input name='tI' value="1.196614">
+            <input type='button' id="btn3" value="确定" ></input> <em id="jg3"></em>
+        </form>
+
+    <h1 style="padding: 1em;color:darkgreen">林分密度指数（SDI）的计算  </h1>
+    <img src="../image/gs4.png">
+    <form class="gs" id="form4"> 
+        N:<input name='n' id='n' value="20"></input>
+        D0:<input name='d0' value="15"></input>
+        Dg:<input name='dg' value="20"></input>
+        β:<input name='xl' value="1.196614">
+            <input type='button' id="btn4" value="确定" ></input> <em id="jg4"> </em>
+</form>
+    <h1 style="padding: 1em;color:darkgreen">分每公顷断面积（BAS）预估模型 </h1>
+    <img src="../image/gs5-1.png">
+    <img src="../image/gs5-2.png">
+    <form class="gs" id="form5"> 
+        SCI:<input name='sci3' id='sci' value="20"></input> 
+        a1:<input name='a1' value="0.413592"></input>
+        k0:<input name='k0' value="0.420027">
+        SDI:<input name='sdi' id='sdi'  value="20"> </input>
+        k1:<input name='k1'  value="2.487462"></input>
+        t0:<input name='t'  value="2.0"></input>
+        a0:<input name='a0' value="18.700762"></input>
+        c:<input name='c1' value="0.393759"></input>
+        <input type='button' id="btn4" value="确定" ></input><em id="jg5"></em>
+    </form>
+    <div id="chartmains" style="margin:0 auto;width:1000px; height: 600px;color:darkgreen;"></div>
+
+    <h1 style="padding: 1em;color:darkgreen">分每公顷蓄积量（VOL）预估模型 </h1>
+    <img src="../image/gs6.png">
+    <form class="gs" id="form6"> 
+            SCI:<input name='sci3' id='sci1' value="20" id='sci1'></input> 
+            a1:<input name='a1' value="0.413592"></input>
+            k0:<input name='k0' value="0.420027">
+            SDI:<input name='sdi' id='sdi1'  value="20" id='sdi1'> </input>
+            k1:<input name='k1'  value="2.487462"></input>
+            t0:<input name='t'  value="2.0"></input>
+            a0:<input name='a0' value="18.700762"></input>
+            c:<input name='c1' value="0.393759"></input>
+            TH:<input name='th'  value="2.0" id='th1'></input>
+            d0:<input name='d0' value="9.746987"></input>
+            d1:<input name='d1' value="8.14935"></input>
+            <input type='button' id="btn4" value="计算" ></input> 计算:<em id="jg5"> 结果</em>
+        </form>
+        <div id="chartmain" style="margin:0 auto;width:1000px; height: 600px;color:darkgreen;"></div>
+        <script type="module">
+            import {http} from '../url.js';
+        $("#form").click(function(){
+            console.log(JSON.stringify($("#form")))
+        var temp = JSON.stringify({
+            type:'rky',
+                t:$("#form").serializeArray()[0].value,
+                a:$("#form").serializeArray()[1].value,
+                k:$("#form").serializeArray()[2].value,
+                c0:$("#form").serializeArray()[3].value,
+        });
+
+        console.log(temp);
+            $.ajax({
+                url: http+"th3",
+                type:"POST",
+                data: temp,
+                contentType:'application/json',
+                        // 这里把表单里面的数据放在这里传到后台
+                success:function(res){
+                    console.log(res.data);
+                    // $("#jg").after(res.data);     
+                    document.getElementById('jg').innerHTML = '√'; 
+                    document.getElementById('th').value = res.data; 
+                    document.getElementById('th1').value = res.data; 
+                }  
+            })
+            return false;
+        })
+
+                $("#form2").click(function(){
+                    console.log(JSON.stringify($("#form2")))
+                var temp = JSON.stringify({
+                    type:'rky',
+                    th3:$("#form2").serializeArray()[0].value,
+                        t:$("#form2").serializeArray()[1].value,
+                        ti:$("#form2").serializeArray()[2].value,
+                        k:$("#form2").serializeArray()[3].value,
+                        c0:$("#form2").serializeArray()[4].value,
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"sci3",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg2').innerHTML = '√'; 
+                            document.getElementById('sci').value = res.data; 
+                            document.getElementById('sci1').value = res.data; 
+                        }  
+                    })
+                    return false;
+                })
+  
+            $("#form3").click(function(){
+                console.log(JSON.stringify($("#form3")))
+            var temp = JSON.stringify({
+                type:'rky',
+                dg:$("#form3").serializeArray()[0].value,
+                    jj:$("#form3").serializeArray()[1].value,
+                    xl:$("#form3").serializeArray()[2].value,
+            });
+    
+            console.log(temp);
+                $.ajax({
+                    url: http+"N",
+                    type:"POST",
+                    data: temp,
+                    contentType:'application/json',
+                            // 这里把表单里面的数据放在这里传到后台
+                    success:function(res){
+                        console.log(res.data);
+                        // $("#jg").after(res.data);     
+                        document.getElementById('jg3').innerHTML = '√'; 
+                        document.getElementById('n').value = res.data; 
+                    }  
+                })
+                return false;
+            })
+      
+        $("#form4").click(function(){
+            console.log(JSON.stringify($("#form4")))
+        var temp = JSON.stringify({
+            type:'rky',
+            n:$("#form4").serializeArray()[0].value,
+                d0:$("#form4").serializeArray()[1].value,
+                dg:$("#form4").serializeArray()[2].value,
+                xl:$("#form4").serializeArray()[3].value,
+            
+        });
+
+        console.log(temp);
+            $.ajax({
+                url: http+"sdi",
+                type:"POST",
+                data: temp,
+                contentType:'application/json',
+                        // 这里把表单里面的数据放在这里传到后台
+                success:function(res){
+                    console.log(res.data);
+                    // $("#jg").after(res.data);     
+                    document.getElementById('jg4').innerHTML = '√'; 
+                    document.getElementById('sdi').value = res.data;
+                    document.getElementById('sdi1').value = res.data;   
+                }  
+            })
+            return false;
+        })
+
+                $("#form5").click(function(){
+                    console.log(JSON.stringify($("#form5")))
+                var temp = JSON.stringify({
+                    type:'rky',
+                        sci3:$("#form5").serializeArray()[0].value,
+                        a1:$("#form5").serializeArray()[1].value,
+                        k0:$("#form5").serializeArray()[2].value,
+                        sdi:$("#form5").serializeArray()[3].value,
+                        k1:$("#form5").serializeArray()[4].value,
+                        t0:$("#form5").serializeArray()[5].value,
+                        a0:$("#form5").serializeArray()[6].value,
+                        c1:$("#form5").serializeArray()[7].value,
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"bas3",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            var option = {
+            toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+            title:{
+                text:'分每公顷断面积（BAS）预估模型'
+            },
+            tooltip:{},
+            legend:{
+
+            },
+            xAxis:{
+                data:['10', '20', '30', '40','50','60','70','80','90','100']
+            },
+            yAxis:{
+
+            },
+            series:[{
+                itemStyle: {
+                    normal: {
+　　　　　　　　　　　　　　
+                        color: function(params) {
+                            
+                            var colorList = [
+                              '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+　　　　　　　　　　　　　
+                        label: {
+                            show: true,
+                            position: 'top',                   
+                            formatter: '{b}\n{c}'
+                        }
+                    }
+                },
+                name:'数据',
+                type:'bar',
+                data:res.data
+            }]
+        };
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chartmains'));
+
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(option);
+
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                          
+                            
+                        }  
+                    })
+                    return false;
+                })
+  
+                $("#form6").click(function(){
+                    console.log(JSON.stringify($("#form5")))
+                var temp = JSON.stringify({
+                    type:'rky',
+                        sci3:$("#form6").serializeArray()[0].value,
+                        a1:$("#form6").serializeArray()[1].value,
+                        k0:$("#form6").serializeArray()[2].value,
+                        sdi:$("#form6").serializeArray()[3].value,
+                        k1:$("#form6").serializeArray()[4].value,
+                        t0:$("#form6").serializeArray()[5].value,
+                        a0:$("#form6").serializeArray()[6].value,
+                        c1:$("#form6").serializeArray()[7].value,
+                        th3:$("#form6").serializeArray()[8].value,
+                        d0:$("#form6").serializeArray()[9].value,
+                        d1:$("#form6").serializeArray()[10].value,
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"vol3",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            var option = {
+            toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+            title:{
+                text:'分每公顷蓄积量（VOL）预估模型'
+            },
+            tooltip:{},
+            legend:{
+
+            },
+            xAxis:{
+                data:['10', '20', '30', '40','50','60','70','80','90','100']
+            },
+            yAxis:{
+
+            },
+            series:[{
+                itemStyle: {
+                    normal: {
+　　　　　　　　　　　　　　
+                        color: function(params) {
+                            
+                            var colorList = [
+                              '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+　　　　　　　　　　　　　
+                        label: {
+                            show: true,
+                            position: 'top',                   
+                            formatter: '{b}\n{c}'
+                        }
+                    }
+                },
+                name:'数据',
+                type:'bar',
+                data:res.data
+            }]
+        };
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chartmain'));
+
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(option);
+
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                          
+                            
+                        }  
+                    })
+                    return false;
+                })
+                </script>
+</body>
+</html>

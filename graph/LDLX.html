@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript" src="../js/echarts.js"></script>
+    <div id="chartmains" style="margin:0 auto;width:600px; height: 400px;color:darkgreen;"></div>
+    <div id="chartmain" style="margin:0 auto;width: 2200px; height: 600px;color:darkgreen;"></div>
+    <script type="text/javascript">
+        var option = {
+            toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+            tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+            title:{
+                text:'立地类型'
+            },            
+            series:[{
+                itemStyle: {
+                    normal: {
+　　　　　　　　　　　　　　
+                        color: function(params) {
+                            
+                            var colorList = [
+                              '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+　　　　　　　　　　　　　
+                        label: {
+                            show: true,
+                            position: 'top',
+//                     
+                            formatter: '{b}\n{c}'
+                        }
+                    }
+                },
+                name:'数据',
+                type:'pie',    
+                radius:'60%', 
+                data:[
+                    {value:73,name:'阳斜坡中层暗棕壤型'},
+                    {value:597,name:'阳缓坡中层暗棕壤型'},
+                    {value:720,name:'阴缓坡中层暗棕壤型'},
+                    {value:33,name:'阴缓坡厚层暗棕壤型'},
+                    {value:7,name:'阳缓坡厚层暗棕壤型'},
+                    {value:51,name:'阴斜坡薄层暗棕壤型'},
+                    {value:5,name:'阴斜陡坡薄层暗棕壤型'},
+                    {value:17,name:'阴斜坡中层暗棕壤型'},
+                    {value:9,name:'阴陡坡薄层暗棕壤型'},
+                    {value:1,name:'阳斜坡薄层暗棕壤型'},
+                    {value:16,name:'其他'}
+
+                ]
+            }]
+        };
+        
+        var myCharts = echarts.init(document.getElementById('chartmains'));
+        myCharts.setOption(option);
+
+        var option = {
+            toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+            title:{
+                text:'立地类型'
+            },
+            tooltip:{},
+            legend:{
+                data:['用户来源']
+            },
+            xAxis:{
+                data:["阳斜坡中层暗棕壤型","阳缓坡中层暗棕壤型","阴缓坡中层暗棕壤型","阴缓坡厚层暗棕壤型",'阳缓坡厚层暗棕壤型',
+                    '阴斜坡薄层暗棕壤型', '阴斜陡坡薄层暗棕壤型', '阴斜坡中层暗棕壤型', '阴陡坡薄层暗棕壤型', '阳斜坡薄层暗棕壤型', '其他']
+            },
+            yAxis:{
+
+            },
+            series:[{
+                itemStyle: {
+                    normal: {
+　　　　　　　　　　　　　　
+                        color: function(params) {
+                            
+                            var colorList = [
+                              '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+　　　　　　　　　　　　　
+                        label: {
+                            show: true,
+                            position: 'top',
+//                     
+                            formatter: '{b}\n{c}'
+                        }
+                    }
+                },
+                name:'数据',
+                type:'bar',
+                data:[73, 597, 720, 33, 7, 51, 5, 17, 9, 1, 16]
+            }]
+        };
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chartmain'));
+
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

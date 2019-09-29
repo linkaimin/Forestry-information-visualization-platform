@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title>final Map</title>
+    <!--
+    <link rel="stylesheet" href="http://localhost/arcgis_js_v314_api/arcgis_js_api/library/3.14/3.14/esri/css/esri.css">
+    -->
+
+    <script src="js/jquery.js"></script>
+    <link rel="stylesheet" href="http://127.0.0.1/arcgis_js_api/library/3.23/3.23/esri/css/esri.css">
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #FFF;
+            overflow: hidden;
+            font-family: "Trebuchet MS";
+        }
+        #BasemapToggle {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            z-index: 50;
+        }
+        #HomeButton {
+            left: 25px;
+            position: absolute;
+            top: 93px;
+            z-index: 50;
+        }
+        #LocateButton {
+            left: 25px;
+            position: absolute;
+            top: 130px;
+            z-index: 50;
+        }
+        #search {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            top: 25px;
+            left: 75px;
+        }
+    </style>
+
+    <!--
+    <script src="http://localhost/arcgis_js_v314_api/arcgis_js_api/library/3.14/3.14/init.js"></script>
+    -->
+
+    <script src="http://127.0.0.1/arcgis_js_api/library/3.23/3.23/init.js"></script>
+      <script type="module">
+                            import {http} from '/url.js';
+        var map, mapCenter;
+        require([
+                "esri/basemaps",
+                "esri/map",
+                "esri/layers/ArcGISTiledMapServiceLayer",
+                "esri/layers/FeatureLayer",
+                "esri/layers/GraphicsLayer",
+                "esri/geometry/Point",
+                "esri/symbols/SimpleFillSymbol",
+                "esri/symbols/SimpleLineSymbol",
+                "esri/symbols/SimpleMarkerSymbol",
+                "esri/tasks/query",
+                "esri/toolbars/draw",
+                "esri/graphic",
+                "esri/dijit/Scalebar",
+                "esri/dijit/HomeButton",
+                "esri/dijit/LocateButton",
+                "esri/dijit/BasemapToggle",
+                "esri/dijit/OverviewMap",
+                "esri/dijit/Search",
+                "esri/geometry/webMercatorUtils",
+                "esri/renderers/SimpleRenderer",
+                "esri/InfoTemplate",
+                "esri/Color",
+                "dojo/dom",
+                "dojo/on",
+                "dojo/_base/Color",
+                "dojox/charting/Chart2D",
+                "dojo/domReady!"],
+            function (
+                esriBasemaps,
+                Map,
+                Tiled,
+                FeatureLayer,
+                GraphicsLayer,
+                Point,
+                SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol,
+                Query,
+                Draw,
+                Graphic,
+                Scalebar,
+                HomeButton,
+                LocateButton,
+                BasemapToggle,
+                OverviewMap,
+                Search,
+                webMercatorUtils,
+                SimpleRenderer,
+                InfoTemplate,
+                Color,
+                dom) {
+
+                //初始化地图
+                map = new esri.Map("map", {logo: false });
+                var dynamicMapServiceLayer = new esri.layers.ArcGISDynamicMapServiceLayer("http://127.0.0.1:6080/arcgis/rest/services/qth/MapServer");
+                map.addLayer(dynamicMapServiceLayer,1);
+                var chartLayer = new GraphicsLayer({ "id": "chartLayer" });
+                map.addLayer(chartLayer, 2);
+                mapCenter = new Point(103.847, 36.0473, map.spatialReference);
+                map.centerAndZoom(mapCenter, 5);
+                //返回主视图
+                var home = new HomeButton({
+                    map: map
+                }, "HomeButton");
+                home.startup();
+
+                //定位
+                var geoLocate = new LocateButton({
+                    map: map,
+                    highlightLocation:true,
+                    centerAt:true
+                }, "LocateButton");
+                geoLocate.startup();
+
+                //鹰眼
+                var overviewMapDijit = new OverviewMap({
+                    map: map,
+                    expandFactor: 2,
+                    attachTo: "bottom-right",
+                    maximizeButton:true,//最大最小化控制按钮
+                    opacity:0.3,//透明度
+                    visible: true,//可见性，默认为false
+                    width:300,//默认是地图宽度的1/4
+                    height:150//默认是地图高度的1/4
+                });
+                overviewMapDijit.startup();
+
+                //比例尺
+                var scalebar = new esri.dijit.Scalebar({
+                    map: map,//地图对象
+                    attachTo: "bottom-left",//控件的位置，右下角
+                    scalebarStyle: "ruler",//line 比例尺样式类型
+                    scalebarUnit: "metric"//显示地图的单位，这里是km
+                });
+
+                //显示地图坐标
+                map.on("load", function () {
+                    //after map loads, connect to listen to mouse move & drag events
+                    map.on("mouse-move", showCoordinates);
+                    map.on("mouse-drag", showCoordinates);
+                });
+                function showCoordinates(evt) {
+                    //the map is in web mercator but display coordinates in geographic (lat, long)
+                    var mp = webMercatorUtils.webMercatorToGeographic(evt.mapPoint);
+                    //display mouse coordinates
+                    dom.byId("info").innerHTML = mp.x.toFixed(3) + ", " + mp.y.toFixed(3);
+                }
+
+
+                //点击区域显示小班面积
+                for(var i=0;i<60;i++){
+                    //创建一个新的FeatureLayer对象指向图层，还需要设置SNAPSHOT模式来返回特征、定义输出字段和设置定义表达式
+                    var url = "http://127.0.0.1:6080/arcgis/rest/services/qth/MapServer/"+i;
+                    var layer = new FeatureLayer(url, {
+                        mode:FeatureLayer.MODE_ONDEMAND,
+                        outFields:["SHI_NAME","XIAN_NAME","XIANG_NAME","XBMJ","FID"]});
+                    var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+                        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([255,255,255,0.35]),1),
+                        new Color([125,125,125,0.35]));
+                    var defaultSymbol = new SimpleFillSymbol().setStyle(SimpleFillSymbol.STYLE_NULL);
+                    layer.setRenderer(new SimpleRenderer(symbol));
+                    map.addLayer(layer);
+                    //信息模板
+                    var infotemplate = new InfoTemplate();
+                    infotemplate.setTitle("基本信息");
+                    infotemplate.setContent("<b>FID：</b>${FID}<br/>"
+                        +"<b>市：</b>${SHI_NAME}<br/>"
+                        +"<b>区：</b>${XIAN_NAME}<br/>"
+                        +"<b>乡：</b>${XIANG_NAME}<br/>"+
+                        "<b>小班面积：</b>${XBMJ}<br/>");
+
+                    map.infoWindow.resize(245,125);
+                    //高亮符号
+                    var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_DIAGONALCROSS,
+                        new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,255,0.35]),1),
+                        new Color([125,125,125,0.35]));
+                    //将事件（鼠标经过）和处理程序（加载高亮符号和信息模板）关联
+                    layer.on("click",function (evt) {
+
+                        map.graphics.clear();
+                       
+                        evt.graphic.setInfoTemplate(infotemplate);
+                     
+                        setTimeout(() => {
+                            $.ajax({
+                url: http+"argics",
+                type:"GET",
+                data: {str:document.getElementsByClassName("contentPane")[0].innerText},
+                contentType:'application/json',
+                        // 这里把表单里面的数据放在这里传到后台
+                success:function(res){
+                    console.log(res.data);
+                  
+                     document.getElementById('mydata').innerHTML = res.data; 
+                   
+                }  
+            })
+
+                            console.log(document.getElementsByClassName("contentPane")[0].innerText);
+                        }, 500); 
+                    }
+                    );
+                }
+
+        });
+
+    </script>
+</head>
+<body>
+    <div id="map">
+        <!--  返回初始化地图按钮-->
+        <div id='mydata' style="position:absolute; background-color: #fff; right:10px; top:10px; color:#000; z-index:60; width:280px; height:170px;border: solid 2px #0094ff;padding: 4px">地图加载需要一定时间请耐心等待... </div>
+        <div id="HomeButton"></div>
+        <!--  Html5定位按钮-->
+        <div id="LocateButton"></div>
+        <!--  切换底图-->
+        
+        <div id="BasemapToggle"></div>
+        <!--  搜索栏-->
+        <div id="search"></div>
+        <!--  坐标-->
+        <span id="info" style="position:absolute; left:750px; bottom:5px; color:#000; z-index:50;"></span>
+    </div>
+</body>
+</html>

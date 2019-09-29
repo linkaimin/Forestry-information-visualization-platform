@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script src="../js/jquery.js"></script>
+<link href="../css/eys_stly.css" rel="stylesheet" type="text/css" />
+<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="../ss/css/bootstrap-table.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="index2">
+<h3 id="place">查询位置：七台河市 勃利县 勃利镇</h3>
+<form id="form" >
+
+<p class="p_line">
+       <text>分类类型：</text><select class="form-control"  name="zfllx">
+           <option></option>
+                <option>一般商品林</option>
+                <option>一般公益林</option>
+                <option>重点商品林</option>
+                
+ 
+        </select>
+        <text>优势树总组：</text><select class="form-control"  name="ysszz">
+            <option></option>
+                <option>软阔叶混交林</option>
+                <option>杨树林</option>
+                <option>落叶松林</option>
+                <option>柞树林</option>
+                <option>樟子松林</option>
+                
+        </select>
+        <text>龄级:</text><select class="form-control" name="lj">
+             <option></option>
+                <option>Ⅰ</option>
+                <option>Ⅱ</option>
+                <option>Ⅲ</option>
+                <option>Ⅳ</option>
+                <option>Ⅴ</option>
+                <option>Ⅵ</option>
+                <option>Ⅶ</option>
+                <option>Ⅷ</option>
+               
+        </select>
+        <text>经营措施</text><select class="form-control" name="jycs">
+             <option></option>
+                <option>人工造林</option>
+                <option>抚育管理</option>
+                <option>管护</option>
+                <option>皆伐</option>
+                <option>人工林抚育</option>
+               
+        </select>
+     <text>地类:</text><select class="form-control" name="zdl">
+         <option></option>
+            <option>林辅居民点用地</option>
+            <option>其他无立木林地</option>
+            <option>林辅建设用地</option>
+            <option>人工造林未成林地</option>
+            <option>疏林地</option>
+            <option>有林地</option>
+            <option>耕地</option>
+            <option>采伐迹地</option>
+            <option>林辅耕地</option>
+            <option>交通用地</option>
+            <option>宜林荒山荒地</option>
+            <option>其他灌木林地</option>
+            
+      </select>
+      
+           <text>立地类型:</text>
+           <select class="form-control" name="ldlx">
+             <option></option>  
+            <option>阳斜坡中层暗棕壤型</option>
+            <option>阳缓坡中层暗棕壤型</option>
+            <option>阴缓坡中层暗棕壤型</option>
+            <option>阴缓坡厚层暗棕壤型</option>
+            <option>阳缓坡厚层暗棕壤型</option>
+            <option>阴斜坡薄层暗棕壤型</option>
+            <option>阴斜陡坡薄层暗棕壤型</option>
+            <option>阴斜坡中层暗棕壤型</option>
+            <option>阴陡坡薄层暗棕壤型</option>
+            <option>阳斜坡薄层暗棕壤型</option>
+            
+      </select>
+    </select>
+    <text>优势树种:</text><select class="form-control" name="yssz">
+      <option></option>  
+     <option>人柳</option>
+     <option>人杨</option>
+     <option>人落</option>
+     <option>柞树</option>
+     <option>苹果</option>
+     <option>人樟</option>
+     <option>李</option>
+     <option>梨</option>
+     
+</select>
+</select>
+<text>林场质量等级:</text>
+
+<select class="form-control" name="ldzldj">
+        <option></option>
+ <option>III级</option>
+ <option>I级</option>
+ <option>III级</option>
+ 
+</select>
+      <button type="button" id="btn" class="button_style" >查询</button>
+    </p>
+</form>
+      <p > <table  id="table" style="margin: 0 auto">
+        </table></p>
+
+</div>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../ss/js/bootstrap-table.js"></script>
+<script src="../ss/js/bootstrap-table-zh-CN.min.js"></script>
+<script type="module">
+    import {http} from '../url.js';
+        $("#btn").click(function(){
+            console.log(JSON.stringify($("#form")))
+        var temp = JSON.stringify({
+                dcdw:"七台河市 勃利县 勃利镇",
+                zfllx:$("#form").serializeArray()[0].value,
+                ysszz:$("#form").serializeArray()[1].value,
+                lj:$("#form").serializeArray()[2].value,
+                jycs:$("#form").serializeArray()[3].value,
+                zdl:$("#form").serializeArray()[4].value,
+                ldlx:$("#form").serializeArray()[5].value,
+                yssz:$("#form").serializeArray()[6].value,
+                ldzldj:$("#form").serializeArray()[7].value,
+
+        });
+
+        console.log(temp);
+            $.ajax({
+                url: http+"select",
+                type:"POST",
+                data: temp,
+                dataType: "JSON",
+                contentType:'application/json',    
+                        // 这里把表单里面的数据放在这里传到后台
+                error:function(res){
+                    console.log(res.data);
+                    alert("error")
+                }  ,
+                success:function(res){
+                    console.log(res);
+                    $("#table").bootstrapTable('destroy'); 
+                    $('#table').bootstrapTable({
+                    data:res.data,
+                    striped: true,
+                    singleSelect: false,
+                    dataType: "json",
+                    pagination: true, //分页
+                    pageSize: 10,
+                    pageNumber: 1,
+                    search: false, //显示搜索框
+                    contentType: JSON,
+                    queryParams: null,
+                    columns: [
+                      						 {
+                            title: "林班",
+                            field: 'lb',
+                            align: 'center',
+                            valign: 'middle'
+                        },  
+                    {
+                            title: '小班',
+                            field: 'xb',
+                            align: 'center'
+                        },
+                      						 {
+                            title: "小班面积",
+                            field: 'xbmj',
+                            align: 'center',
+                            valign: 'middle'
+                        },  
+						
+                        {
+                            title: "分类类型",
+                            field: 'zfllx',
+                            align: 'center',
+                            valign: 'middle'
+                        },
+						
+                        {
+                            title: "地类",
+                            field: 'zdl',
+                            align: 'center',
+                            valign: 'middle'
+                        },
+                        {
+                            title: '优势树总组',
+                            field: 'ysszz',
+                            align: 'center',
+                            valign: 'middle'
+                        },
+                        {
+                            title: '龄级',
+                            field: 'lj',
+                            align: 'center'
+                        },
+                        {
+                            title: '经营措施',
+                            field: 'jycs',
+                            align: 'center'
+                        },
+                        {
+                            title: '立地类型',
+                            field: 'ldlx',
+                            align: 'center'
+                        },
+                        {
+                            title: '优势树种',
+                            field: 'yssz',
+                            align: 'center'
+                        },
+						 {
+                            title: "林场质量等级",
+                            field: 'ldzldj',
+                            align: 'center',
+                            valign: 'middle'
+                        }
+                    
+                    ]
+                });
+               
+                }
+     
+                 
+                })
+                return false;
+    })
+
+</script>
+  <script type="text/javascript">
+            // $(function () {
+            //     $('#table').bootstrapTable({
+            //         method: "get",
+            //         striped: true,
+            //         singleSelect: false,
+            //         url: "http://192.168.1.204:8080/select",
+            //         dataType: "json",
+            //         pagination: true, //分页
+            //         pageSize: 10,
+            //         pageNumber: 1,
+            //         search: false, //显示搜索框
+            //         contentType: JSON,
+            //         queryParams: null,
+            //         columns: [
+						
+            //             {
+            //                 title: "调查单位",
+            //                 field: 'dcdw',
+            //                 align: 'center',
+            //                 valign: 'middle'
+            //             },
+						
+            //             {
+            //                 title: "林场单位代码",
+            //                 field: 'lcdwdm',
+            //                 align: 'center',
+            //                 valign: 'middle'
+            //             },
+            //             {
+            //                 title: '土地所有权',
+            //                 field: 'tdsuoyq',
+            //                 align: 'center',
+            //                 valign: 'middle'
+            //             },
+            //             {
+            //                 title: '工程类别',
+            //                 field: 'zgclb',
+            //                 align: 'center'
+            //             },
+            //             {
+            //                 title: '地类',
+            //                 field: 'zdl',
+            //                 align: 'center'
+            //             },
+            //             {
+            //                 title: ' 变化原因',
+            //                 field: 'bianhyy',
+            //                 align: 'center'
+            //             },
+            //             {
+            //                 title: '变化年度',
+            //                 field: 'bianhnd',
+            //                 align: 'center'
+            //             },
+			// 			 {
+            //                 title: "优势树种组",
+            //                 field: 'ysszz',
+            //                 align: 'center',
+            //                 valign: 'middle'
+            //             },
+			// 			 {
+            //                 title: "乡ID",
+            //                 field: 'idliang',
+            //                 align: 'center',
+            //                 valign: 'middle'
+            //             },
+						
+            //             {
+            //                 title: '龄级',
+            //                 field: 'lj',
+            //                 align: 'center',
+            //                 formatter: function (value, row) {
+            //                     var e = '<a href="#" mce_href="#" onclick="edit(\'' + row.id + '\')">处置</a> ';
+            //                     var d = '<a href="#" mce_href="#" onclick="edit(\'' + row.id + '\')">关闭</a> ';
+            //                     var c = '<a href="#" mce_href="#" onclick="edit(\'' + row.id + '\')">预案</a> ';
+            //                     return e + d + c;
+            //                 }
+            //             }
+            //         ]
+            //     });
+            // })
+
+        </script>
+
+</body>
+</html>

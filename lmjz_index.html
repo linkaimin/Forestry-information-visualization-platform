@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/echarts.js"></script>
+    <link rel="stylesheet" href="css/mx.css" type="text/css" >
+
+</head>
+<body>
+
+     
+    <h1 style="padding: 1em;color:darkgreen">林木价值量评估  </h1>
+    <img src="image/3341.png" style="width:1390px">
+    <form class="gs" id="form5"> 
+ 
+        Ci:<input name='str' value="30,40,50"></input><span>(多个参数之间请用英文逗号分隔)</span>
+        K:<input name='k' value="40"></input> n:<input name='n' value="3"></input>
+       
+            <input type='button' id="btn5" value="确定" ></input> <em id="jg5"></em>
+        </form>
+
+        <script type="module">
+            import {http} from '/url.js';
+ 
+                $("#form5").click(function(){
+                    // console.log(JSON.stringify($("#form5")))
+                
+
+                var str = $("#form5").serializeArray()[0].value;
+                var k=$("#form5").serializeArray()[1].value;
+                var n=$("#form5").serializeArray()[2].value;
+                       
+                var temp = ({
+                    str:$("#form5").serializeArray()[0].value,
+                    k:$("#form5").serializeArray()[1].value,
+                    n:$("#form5").serializeArray()[2].value,
+                });   
+
+                    $.ajax({
+                      
+                        url:http+"value",
+                        type:"GET",
+                        dataType:"text",
+                        data:temp,
+                        
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.length);
+                            str = ''
+                            for(let i=17;i<(res.length)-1;i++)
+                            {
+                               var str = str + res[i];
+                            }
+                            console.log(str);
+            
+                            document.getElementById('jg5').innerHTML =str; 
+                           
+                        }  ,
+                        error:function(res){          
+                            console.log(111); 
+                        } 
+                        
+                    })
+                    return false;
+                })
+               
+            </script>
+
+</body>
+</html>

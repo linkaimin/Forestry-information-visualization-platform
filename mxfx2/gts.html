@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/echarts.js"></script>
+    <link rel="stylesheet" href="mx.css" type="text/css" >
+
+</head>
+<body>
+
+    <h1 style="padding: 1em;color:darkgreen">植被固碳实物量 </h1>
+    <img src="../image/2gs8.png">
+    <form class="gs" id="form"> 
+ 
+        R碳:<input name='rt' value="22.132243"></input>
+        B年:<input name='bn' value="0.010571"></input>
+        A:<input name='a' value="22.132243"></input>
+
+        <input type='button' id="btn" value="确定" ></input> <em id="jg"> </em>
+    </form>
+   
+
+    <h1 style="padding: 1em;color:darkgreen">土壤固碳实物量  </h1>
+    <img src="../image/2gs9.png">
+    <form class="gs" id="form2"> 
+ 
+        F土壤:<input name='ftr' value="30"></input>
+        A:<input name='a' value="40"></input>
+            <input type='button' id="btn2" value="确定" ></input> <em id="jg2"></em>
+        </form>
+
+    <h1 style="padding: 1em;color:darkgreen">固碳价值量</h1>
+   
+    <img src="../image/2gs10.png">
+
+     <form class="gs" id="form3"> 
+         A:<input name='a' value="49544.07"></input>
+         C碳:<input name='ct'  id='dg' value="20"></input>
+         R碳:<input name='rt' value="1.196614"></input>
+         B年:<input name='c'  id='bn' value="20"></input>
+         F土壤碳:<input name='ftrt' value="49544.07"></input>
+
+            <input type='button' id="btn3" value="确定" ></input> <em id="jg3"></em>
+        </form>
+        <h1 style="padding: 1em;color:darkgreen">固碳价值量</h1>
+   
+        <img src="../image/2gs11.png">
+    
+         <form class="gs" id="form4"> 
+             A:<input name='a' value="49544.07"></input>
+             B年:<input name='c'  id='bn' value="20"></input>   
+                <input type='button' id="btn4" value="确定" ></input> <em id="jg4"></em>
+            </form>
+     
+    <h1 style="padding: 1em;color:darkgreen">释氧价值量  </h1>
+    <img src="../image/2gs12.png">
+    <form class="gs" id="form5"> 
+ 
+        C氧:<input name='cy' value="30"></input>
+        A:<input name='a' value="40"></input>
+        B年:<input name='bn' value="40"></input>
+
+            <input type='button' id="btn5" value="确定" ></input> <em id="jg5"></em>
+        </form>
+        <script type="module">
+            import {http} from '../url.js';
+        $("#form").click(function(){
+            console.log(JSON.stringify($("#form")))
+        var temp = JSON.stringify({
+
+                rt:$("#form").serializeArray()[0].value,
+                bn:$("#form").serializeArray()[1].value,
+                a:$("#form").serializeArray()[2].value,
+                
+        });
+
+        console.log(temp);
+            $.ajax({
+                url: http+"gzbgt",
+                type:"POST",
+                data: temp,
+                contentType:'application/json',
+                        // 这里把表单里面的数据放在这里传到后台
+                success:function(res){
+                    console.log(res.data);
+                    // $("#jg").after(res.data);     
+                    document.getElementById('jg').innerHTML = res.data; 
+                   
+                }  
+            })
+            return false;
+        })
+
+           
+                $("#form2").click(function(){
+                    console.log(JSON.stringify($("#form2")))
+                var temp = JSON.stringify({
+
+                        ftr:$("#form2").serializeArray()[0].value,
+                        a:$("#form2").serializeArray()[1].value,
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"gtrgt",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg2').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+
+            $("#form3").click(function(){
+                console.log(JSON.stringify($("#form3")))
+            var temp = JSON.stringify({
+            
+                    a:$("#form3").serializeArray()[0].value,
+                    ct:$("#form3").serializeArray()[1].value,
+                    rt:$("#form3").serializeArray()[2].value,
+                    bn:$("#form3").serializeArray()[3].value,
+                    ftzt:$("#form3").serializeArray()[4].value,
+
+            });
+    
+            console.log(temp);
+                $.ajax({
+                    url: http+"utan",
+                    type:"POST",
+                    data: temp,
+                    contentType:'application/json',
+                            // 这里把表单里面的数据放在这里传到后台
+                    success:function(res){
+                        console.log(res.data);
+                        // $("#jg").after(res.data);     
+                        document.getElementById('jg3').innerHTML = res.data; 
+                       
+                    }  
+                })
+                return false;
+            })
+            $("#form4").click(function(){
+                    console.log(JSON.stringify($("#form4")))
+                var temp = JSON.stringify({
+
+                        a:$("#form4").serializeArray()[0].value,
+                        bn:$("#form4").serializeArray()[1].value,
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"gy",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg4').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+                $("#form5").click(function(){
+                    console.log(JSON.stringify($("#form5")))
+                var temp = JSON.stringify({
+
+                        cy:$("#form5").serializeArray()[0].value,
+                        a:$("#form5").serializeArray()[1].value,
+                        bn:$("#form5").serializeArray()[2].value,
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"uy",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg5').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+            </script>
+
+</body>
+</html>

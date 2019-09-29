@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/echarts.js"></script>
+    <link rel="stylesheet" href="css/mx.css" type="text/css" >
+
+</head>
+<body>
+
+    <h1 style="padding: 1em;color:darkgreen">生物量转化因子函数-二元函数 </h1>
+    <img src="image/gs21.png">
+    <form class="gs" id="form"> 
+ 
+        D:<input name='d' value="10"></input>
+        H:<input name='h' value="10"></input>
+
+        <input type='button' id="btn" value="确定" ></input> <em id="jg"> </em>
+    </form>
+   
+
+    <h1 style="padding: 1em;color:darkgreen">生物量转化因子函数-二元函数</h1>
+    <img src="image/gs22.png">
+    <form class="gs" id="form2"> 
+        D:<input name='d' value="10"></input>
+        H:<input name='h' value="10"></input>
+            <input type='button' id="btn2" value="确定" ></input> <em id="jg2"></em>
+        </form>		
+    </form>
+	 <h1 style="padding: 1em;color:darkgreen">生物量转化因子函数 -二元立木材积模型</h1>
+    <img src="image/gs23.png">
+    <form class="gs" id="form3"> 
+        D:<input name='d' value="10"></input>
+        H:<input name='h' value="10"></input>
+            <input type='button' id="btn2" value="确定" ></input> <em id="jg3"></em>
+        </form>		
+    </form>
+	 <h1 style="padding: 1em;color:darkgreen">生物量转化因子函数 -二元立木材积模型</h1>
+    <img src="image/gs24.png">
+    <form class="gs" id="form4"> 
+        D:<input name='d' value="10"></input>
+        H:<input name='h' value="10"></input>
+            <input type='button' id="btn2" value="确定" ></input> <em id="jg4"></em>
+        </form>		
+    </form>
+    <h1 style="padding: 1em;color:darkgreen">根茎比函数-二元函数式</h1>
+    <img src="image/gs25.png">
+    <form class="gs" id="form5"> 
+        D:<input name='d' value="10"></input>
+        H:<input name='h' value="10"></input>
+            <input type='button' id="btn2" value="确定" ></input> <em id="jg5"></em>
+        </form>		
+    </form>
+	 <h1 style="padding: 1em;color:darkgreen">根茎比函数-二元函数式</h1>
+    <img src="image/gs26.png">
+    <form class="gs" id="form6"> 
+        D:<input name='d' value="10"></input>
+        H:<input name='h' value="10"></input>
+            <input type='button' id="btn2" value="确定" ></input> <em id="jg6"></em>
+        </form>		
+    </form>
+   
+
+    <script type="module">
+        import {http} from '/url.js';
+
+        $("#form").click(function(){
+            console.log(JSON.stringify($("#form")))
+        var temp = JSON.stringify({
+
+                d:$("#form").serializeArray()[0].value,
+                h:$("#form").serializeArray()[1].value,
+                
+        });
+
+        console.log(temp);
+            $.ajax({
+                url: http+"BCF",
+                type:"POST",
+                data: temp,
+                contentType:'application/json',
+                        // 这里把表单里面的数据放在这里传到后台
+                success:function(res){
+                    console.log(res.data);
+                    // $("#jg").after(res.data);     
+                    document.getElementById('jg').innerHTML = res.data; 
+                   
+                }  
+            })
+            return false;
+        })
+  
+           
+                $("#form2").click(function(){
+                    console.log(JSON.stringify($("#form2")))
+                var temp = JSON.stringify({
+
+                        d:$("#form2").serializeArray()[0].value,
+                        h:$("#form2").serializeArray()[1].value,
+              
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"BCF",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg2').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+       
+           
+                $("#form3").click(function(){
+                    console.log(JSON.stringify($("#form3")))
+                var temp = JSON.stringify({
+
+                        d:$("#form3").serializeArray()[0].value,
+                        h:$("#form3").serializeArray()[1].value,
+              
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"CJ",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg3').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+         
+           
+                $("#form4").click(function(){
+                    console.log(JSON.stringify($("#form4")))
+                var temp = JSON.stringify({
+
+                        d:$("#form4").serializeArray()[0].value,
+                        h:$("#form4").serializeArray()[1].value,
+              
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"CJ",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg4').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+         
+                $("#form5").click(function(){
+                    console.log(JSON.stringify($("#form5")))
+                var temp = JSON.stringify({
+
+                        d:$("#form5").serializeArray()[0].value,
+                        h:$("#form5").serializeArray()[1].value,
+              
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"RSR",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg5').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+      
+           
+                $("#form6").click(function(){
+                    console.log(JSON.stringify($("#form6")))
+                var temp = JSON.stringify({
+
+                        d:$("#form6").serializeArray()[0].value,
+                        h:$("#form6").serializeArray()[1].value,
+              
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"RSR",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg6').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+                </script>
+ 
+</body>
+</html>

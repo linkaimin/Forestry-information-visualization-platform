@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/echarts.js"></script>
+    <link rel="stylesheet" href="css/mx.css" type="text/css" >
+
+</head>
+<body>
+
+    <h1 style="padding: 1em;color:darkgreen">森林碳汇量价值计算 </h1>
+    <img src="image/3gs1.png">
+    <form class="gs" id="form"> 
+ 
+    
+        C:<input name='c0' value="20"></input>
+        P:<input name='p0' value="20"></input>
+
+        <input type='button' id="btn" value="确定" ></input> <em id="jg"> </em>
+    </form>
+   
+
+    <h1 style="padding: 1em;color:darkgreen">森林碳储量和碳汇 (指净固碳) 价值（不同林型） </h1>
+    <img src="image/3gs2.png">
+    <form class="gs" id="form2"> 
+      
+        SVD:<input name='svd' value="20"></input>
+        c:<input name='c' value="20"></input>
+        BEF:<input name='bef' value="20"></input>
+        G:<input name='g' value="20"></input>
+            <input type='button' id="btn2" value="确定" ></input> <em id="jg2"></em>
+        </form>
+           <form class="gs" id="form3"> 
+      
+      R:<input name='r' value="20"></input>
+      GR:<input name='gr' value="30"></input>
+      CR:<input name='cr' value="40"></input>
+      P:<input name='p' value="50"></input>
+          <input type='button' id="btn3" value="确定" ></input> <em id="jg3"></em>
+      </form>
+
+
+      <script type="module">
+        import {http} from '/url.js';
+
+        $("#form").click(function(){
+            console.log(JSON.stringify($("#form")))
+        var temp = JSON.stringify({
+
+                c0:$("#form").serializeArray()[0].value,
+                p0:$("#form").serializeArray()[1].value,
+               
+                
+                
+        });
+
+        console.log(temp);
+            $.ajax({
+                url: http+"Q",
+                type:"POST",
+                data: temp,
+                contentType:'application/json',
+                        // 这里把表单里面的数据放在这里传到后台
+                success:function(res){
+                    console.log(res.data);
+                    // $("#jg").after(res.data);     
+                    document.getElementById('jg').innerHTML = res.data; 
+                   
+                }  
+            })
+            return false;
+        })
+  
+                $("#form2").click(function(){
+                    console.log(JSON.stringify($("#form2")))
+                var temp = JSON.stringify({
+
+                        g:$("#form2").serializeArray()[0].value,
+                        svd:$("#form2").serializeArray()[1].value,
+                        bef:$("#form2").serializeArray()[2].value,
+                        c1:$("#form2").serializeArray()[3].value,
+                       
+                       
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"R",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg2').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+
+        $("#form3").click(function(){
+            console.log(JSON.stringify($("#form3")))
+        var temp = JSON.stringify({
+
+                r:$("#form3").serializeArray()[0].value,
+                gr:$("#form3").serializeArray()[1].value,
+                cr:$("#form3").serializeArray()[2].value,
+                p1:$("#form3").serializeArray()[3].value,
+               
+               
+        });
+
+        console.log(temp);
+            $.ajax({
+                url: http+"V",
+                type:"POST",
+                data: temp,
+                contentType:'application/json',
+                        // 这里把表单里面的数据放在这里传到后台
+                success:function(res){
+                    console.log(res.data);
+                    // $("#jg").after(res.data);     
+                    document.getElementById('jg3').innerHTML =res.data ; 
+                   
+                }  
+            })
+            return false;
+        })
+        </script>
+
+</body>
+</html>

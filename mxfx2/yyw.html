@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/echarts.js"></script>
+    <link rel="stylesheet" href="mx.css" type="text/css" >
+
+</head>
+<body>
+
+    <h1 style="padding: 1em;color:darkgreen">固氮/磷/钾量</h1>
+    <img src="../image/2gs26.png">
+    <form class="gs" id="form"> 
+ 
+        N营养:<input name='nyy' value="22.132243"></input>
+        a:<input name='a' value="0.010571"></input>
+        Bn:<input name='bn' value="22.132243"></input>
+      
+        <input type='button' id="btn" value="确定" ></input> <em id="jg"> </em>
+    </form>
+    <form class="gs" id="form2"> 
+ 
+        P营养:<input name='pyy' value="22.132243"></input>
+        a:<input name='a' value="0.010571"></input>
+        Bn:<input name='bn' value="22.132243"></input>
+      
+        <input type='button' id="btn" value="确定" ></input> <em id="jg2"> </em>
+    </form>
+    <form class="gs" id="form3"> 
+ 
+        K营养:<input name='kyy' value="22.132243"></input>
+        a:<input name='a' value="0.010571"></input>
+        Bn:<input name='bn' value="22.132243"></input>
+      
+        <input type='button' id="btn" value="确定" ></input> <em id="jg3"> </em>
+    </form>
+    <h1 style="padding: 1em;color:darkgreen">林木营养积累价值量  </h1>
+    <img src="../image/2gs25.png">
+    <form class="gs" id="form4"> 
+ 
+        A :<input name='a' value="30"></input>
+        B年:<input name='bn' value="40"></input>
+        N营养:<input name='nyy' value="0.010571"></input>
+        C1:<input name='c1' value="0.541094"></input>
+        R1:<input name='r1' value="0.541094"></input>
+        P营养 :<input name='pyy' value="30"></input>
+        R2:<input name='r2' value="0.010571"></input>
+        K营养:<input name='kyy' value="0.541094"></input>
+        C2:<input name='c2' value="0.541094"></input>
+        R3:<input name='r3' value="0.010571"></input>
+            <input type='button' id="btn2" value="确定" ></input> <em id="jg4"></em>
+        </form>
+
+   
+
+     
+        <script type="module">
+            import {http} from '../url.js';
+        $("#form").click(function(){
+            console.log(JSON.stringify($("#form")))
+        var temp = JSON.stringify({
+
+               nyy:$("#form").serializeArray()[0].value,
+                a:$("#form").serializeArray()[1].value,
+                bn:$("#form").serializeArray()[2].value,
+               
+        });
+
+        console.log(temp);
+            $.ajax({
+                url: http+"gd",
+                type:"POST",
+                data: temp,
+                contentType:'application/json',
+                        // 这里把表单里面的数据放在这里传到后台
+                success:function(res){
+                    console.log(res.data);
+                    // $("#jg").after(res.data);     
+                    document.getElementById('jg').innerHTML = res.data; 
+                   
+                }  
+            })
+            return false;
+        })
+  
+                $("#form2").click(function(){
+                    console.log(JSON.stringify($("#form2")))
+                var temp = JSON.stringify({
+
+                        pyy:$("#form2").serializeArray()[0].value,
+                        a:$("#form2").serializeArray()[1].value,
+                        bn:$("#form2").serializeArray()[2].value,
+                        
+                });
+        
+                console.log(temp);
+                    $.ajax({
+                        url: http+"gl",
+                        type:"POST",
+                        data: temp,
+                        contentType:'application/json',
+                                // 这里把表单里面的数据放在这里传到后台
+                        success:function(res){
+                            console.log(res.data);
+                            // $("#jg").after(res.data);     
+                            document.getElementById('jg2').innerHTML =res.data ; 
+                           
+                        }  
+                    })
+                    return false;
+                })
+   
+            $("#form3").click(function(){
+                console.log(JSON.stringify($("#form3")))
+            var temp = JSON.stringify({
+            
+                    kyy:$("#form3").serializeArray()[0].value,
+                    a:$("#form3").serializeArray()[1].value,
+                    bn:$("#form3").serializeArray()[2].value,
+                    
+
+            });
+    
+            console.log(temp);
+                $.ajax({
+                    url: http+"gj",
+                    type:"POST",
+                    data: temp,
+                    contentType:'application/json',
+                            // 这里把表单里面的数据放在这里传到后台
+                    success:function(res){
+                        console.log(res.data);
+                        // $("#jg").after(res.data);     
+                        document.getElementById('jg3').innerHTML = res.data; 
+                       
+                    }  
+                })
+                return false;
+            })
+            $("#form4").click(function(){
+                console.log(JSON.stringify($("#form4")))
+            var temp = JSON.stringify({
+            
+                    a:$("#form4").serializeArray()[0].value,
+                    bn:$("#form4").serializeArray()[1].value,
+                    nyy:$("#form4").serializeArray()[2].value,
+                    c1:$("#form4").serializeArray()[3].value,
+                    r1:$("#form4").serializeArray()[4].value,
+                    pyy:$("#form4").serializeArray()[5].value,
+                    r2:$("#form4").serializeArray()[6].value,
+                    kyy:$("#form4").serializeArray()[7].value,
+                    c2:$("#form4").serializeArray()[8].value,
+                    r3:$("#form4").serializeArray()[9].value,
+                    
+
+            });
+    
+            console.log(temp);
+                $.ajax({
+                    url: http+"uyy",
+                    type:"POST",
+                    data: temp,
+                    contentType:'application/json',
+                            // 这里把表单里面的数据放在这里传到后台
+                    success:function(res){
+                        console.log(res.data);
+                        // $("#jg").after(res.data);     
+                        document.getElementById('jg4').innerHTML = res.data; 
+                       
+                    }  
+                })
+                return false;
+            })
+            $("#form5").click(function(){
+                console.log(JSON.stringify($("#form5")))
+            var temp = JSON.stringify({
+            
+                    p:$("#form5").serializeArray()[0].value,
+                    a:$("#form5").serializeArray()[1].value,
+                    e:$("#form5").serializeArray()[2].value,
+                    c:$("#form5").serializeArray()[3].value,
+                    k:$("#form5").serializeArray()[4].value,
+                    
+
+            });
+    
+            console.log(temp);
+                $.ajax({
+                    url: http+"jhsz",
+                    type:"POST",
+                    data: temp,
+                    contentType:'application/json',
+                            // 这里把表单里面的数据放在这里传到后台
+                    success:function(res){
+                        console.log(res.data);
+                        // $("#jg").after(res.data);     
+                        document.getElementById('jg5').innerHTML = res.data; 
+                       
+                    }  
+                })
+                return false;
+            })
+            </script>
+
+</body>
+</html>
